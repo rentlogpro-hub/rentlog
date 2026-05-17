@@ -9,11 +9,13 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { color: var(--text); background: var(--light); line-height: 1.6; }
         
-        /* Navigation Bar with Logo */
-        nav { background: white; padding: 15px 10%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 100; }
-        nav .logo { font-weight: 800; font-size: 22px; color: var(--primary); letter-spacing: 0.5px; }
-        nav a { text-decoration: none; color: #555; margin-left: 20px; font-weight: 500; }
-        nav a:hover { color: var(--primary); }
+        /* Navigation Bar with Logo Image */
+        nav { background: white; padding: 10px 10%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 100; }
+        .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-img { height: 40px; width: auto; object-fit: contain; }
+        .logo-text { font-weight: 800; font-size: 22px; color: var(--primary); letter-spacing: 0.5px; }
+        nav a.nav-link { text-decoration: none; color: #555; margin-left: 20px; font-weight: 500; }
+        nav a.nav-link:hover { color: var(--primary); }
         
         /* Hero Section */
         header { background: linear-gradient(135deg, #1976D2, #2196F3); color: white; padding: 100px 10%; text-align: center; }
@@ -22,19 +24,19 @@
         
         .btn { display: inline-block; padding: 12px 35px; background: white; color: var(--primary); font-weight: bold; border-radius: 25px; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.2s; }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
-        .btn-primary { background: var(--dark); color: white; }
 
         .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
         section { background: white; padding: 40px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
         h2 { border-bottom: 2px solid var(--light); padding-bottom: 10px; margin-bottom: 25px; color: var(--dark); font-size: 28px; }
         
         /* Feature Grid Layout */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1-fr)); gap: 25px; margin-top: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 20px; }
         .card { background: var(--light); padding: 25px; border-radius: 6px; border-top: 4px solid var(--primary); }
         .card h3 { margin-bottom: 10px; color: var(--dark); }
         
         /* Launch Gatekeeper Overlay */
         #launch-gatekeeper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #1976D2, #2196F3); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99999; text-align: center; padding: 20px; }
+        #launch-gatekeeper img { height: 100px; width: auto; margin-bottom: 20px; }
         #launch-gatekeeper h1 { font-size: 46px; margin-bottom: 10px; font-weight: bold; }
         #launch-gatekeeper p { font-size: 22px; opacity: 0.9; margin-bottom: 20px; }
         #countdown-timer { font-size: 32px; font-weight: bold; background: rgba(0,0,0,0.2); padding: 15px 30px; border-radius: 10px; letter-spacing: 1px; }
@@ -43,11 +45,14 @@
 <body>
 
     <nav>
-        <div class="logo">RentLog PRO</div>
+        <a href="index.html" class="logo-container">
+            <img src="logo.png" alt="RentLog PRO Logo" class="logo-img" onerror="this.style.display='none';">
+            <span class="logo-text">RentLog PRO</span>
+        </a>
         <div>
-            <a href="download.html">Download</a>
-            <a href="manual.html">User Manual</a>
-            <a href="support.html">Support</a>
+            <a href="download.html" class="nav-link">Download</a>
+            <a href="manual.html" class="nav-link">User Manual</a>
+            <a href="support.html" class="nav-link">Support</a>
         </div>
     </nav>
 
@@ -60,7 +65,7 @@
     <div class="container">
         <section id="about">
             <h2>What is RentLog PRO?</h2>
-            <p>RentLog PRO is a powerful, offline-first administrative application tailored for housing managers, land lords, and property redevelopment organizers. Built to remove accounting friction, it allows you to eliminate paper trail chaos by taking complete command of your real estate portfolios entirely from your Android device—no internet connectivity or cloud database dependencies required.</p>
+            <p>RentLog PRO is a powerful, offline-first administrative application tailored for housing managers, landlords, and property redevelopment organizers. Built to remove accounting friction, it allows you to eliminate paper trail chaos by taking complete command of your real estate portfolios entirely from your Android device—no internet connectivity or cloud database dependencies required.</p>
         </section>
 
         <section id="features">
@@ -101,6 +106,7 @@
     </div>
 
     <div id="launch-gatekeeper">
+        <img src="logo.png" alt="RentLog PRO Logo" onerror="this.style.display='none';">
         <h1>RentLog PRO</h1>
         <p>The Ultimate Property Management App is Launching Soon!</p>
         <div id="countdown-timer">Calculating time...</div>
