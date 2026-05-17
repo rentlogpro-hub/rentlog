@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RentLog - Smart Property Management App</title>
+    <title>RentLog PRO - Smart Property Management App</title>
     <style>
         :root { --primary: #2196F3; --dark: #1E1E24; --light: #F4F6F9; --text: #333; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
@@ -45,12 +45,24 @@
         textarea { resize: vertical; height: 120px; }
         form button { background: var(--primary); color: white; border: none; padding: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 16px; }
         form button:hover { background: #1976D2; }
+
+        /* Launch Gatekeeper Overlay Styling */
+        #launch-gatekeeper {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1976D2, #2196F3);
+            color: white; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 99999;
+            text-align: center; padding: 20px;
+        }
+        #launch-gatekeeper h1 { font-size: 42px; margin-bottom: 10px; font-weight: bold; }
+        #launch-gatekeeper p { font-size: 20px; opacity: 0.9; margin-bottom: 20px; }
+        #countdown-timer { font-size: 32px; font-weight: bold; background: rgba(0,0,0,0.2); padding: 15px 30px; border-radius: 10px; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">RentLog App</div>
+        <div class="logo">RentLog PRO</div>
         <div>
             <a href="#download">Download</a>
             <a href="#manual">User Manual</a>
@@ -66,22 +78,17 @@
 
     <div class="container">
         
-        <!-- DOWNLOAD PAGE SECTION -->
         <section id="download" style="text-align: center; padding: 50px 20px;">
             <h2>Download RentLog Application</h2>
             <p style="margin-bottom: 25px;">Download the official production-ready Android package directly below.</p>
-            <!-- ⚠️ LINK INSTRUCTION: We will fill this href value in Step 4 once uploaded -->
-            <a href="RentLog_PRO" class="btn btn-primary" download>Download RentLog .APK</a>
+            <a href="RentLog_PRO.apk" class="btn btn-primary" download>Download RentLog .APK</a>
             <p style="font-size: 12px; color: #777; margin-top: 10px;">Supported on Android 8.0 (API Level 26) and higher</p>
         </section>
 
-        <!-- USER MANUAL SECTION WITH IMAGE INJECTIONS -->
-<!-- USER MANUAL SECTION WITH SPECIFIC JPG IMAGES -->
         <section id="manual">
             <h2>Detailed User Manual & App Walkthrough</h2>
             <p style="margin-bottom: 25px; color: #666;">Follow this screen-by-screen manual sequence to master the workflows inside RentLog PRO.</p>
             
-            <!-- 1. Authentication & Recovery Flow -->
             <div class="manual-group" style="margin-bottom: 40px; border-left: 4px solid var(--primary); padding-left: 15px;">
                 <h3 style="color: var(--dark); margin-bottom: 15px;">1. Onboarding & Security Setup</h3>
                 
@@ -128,7 +135,6 @@
                 </div>
             </div>
 
-            <!-- 2. Dashboard Lifecycle States -->
             <div class="manual-group" style="margin-bottom: 40px; border-left: 4px solid var(--primary); padding-left: 15px;">
                 <h3 style="color: var(--dark); margin-bottom: 15px;">2. Property & Tenant Provisioning Ledger</h3>
                 
@@ -181,7 +187,6 @@
                 </div>
             </div>
 
-            <!-- 3. Multi-Step Rent Logging System -->
             <div class="manual-group" style="margin-bottom: 40px; border-left: 4px solid var(--primary); padding-left: 15px;">
                 <h3 style="color: var(--dark); margin-bottom: 15px;">3. Secure Payment Entry Workflows</h3>
                 
@@ -222,7 +227,6 @@
                 </div>
             </div>
 
-            <!-- 4. Historical Ledgers & Support Tools -->
             <div class="manual-group" style="margin-bottom: 40px; border-left: 4px solid var(--primary); padding-left: 15px;">
                 <h3 style="color: var(--dark); margin-bottom: 15px;">4. Ledger Records & Support Tools</h3>
                 
@@ -252,23 +256,18 @@
             </div>
         </section>
 
-        <!-- CONTACT DEVELOPER SECTION -->
         <section id="contact">
             <h2>Contact Developer & Support</h2>
             <p style="margin-bottom: 20px;">Have questions, bugs, or feature suggestions? Get in touch with us instantly using any channel below:</p>
             
             <div class="quick-contact-channels">
-                <!-- 📱 WHATSAPP CLICK TO CHAT (Replace 911234567890 with your country code + phone number) -->
                 <a href="https://wa.me/919892758104?text=Hi,%20I'm%20using%20the%20RentLog%20App%20and%20need%20some%20help." target="_blank" class="btn btn-wa">Chat on WhatsApp</a>
-                
-                <!-- ✉️ DIRECT MAILTO ACTION LINK -->
                 <a href="mailto:rentlogpro@gmail.com?subject=RentLog%20App%20Query" class="btn btn-email">Send Direct Email</a>
             </div>
 
             <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 20px;">
 
             <h3>Submit a Support Ticket</h3>
-            <!-- 📨 FORMSPREE BACKEND LINK: Paste your unique link here inside the action field in Step 3 -->
             <form action="https://formspree.io/f/xeedjyll" method="POST">
                 <div class="form-group">
                     <label>Your Name</label>
@@ -291,5 +290,37 @@
         </section>
     </div>
 
+    <div id="launch-gatekeeper">
+        <h1>RentLog PRO</h1>
+        <p>The Ultimate Property Management App is Launching Soon!</p>
+        <div id="countdown-timer">Calculating time...</div>
+    </div>
+
+    <script>
+        // Target Launch Date: Midnight entering Saturday, May 23, 2026
+        const launchDate = new Date("May 23, 2026 00:00:00").getTime();
+
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const timeLeft = launchDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown-timer").innerHTML = 
+                days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+            if (timeLeft < 0) {
+                clearInterval(timerInterval);
+                document.getElementById("launch-gatekeeper").style.display = "none";
+            }
+        }, 1000);
+
+        if (new Date().getTime() >= launchDate) {
+            document.getElementById("launch-gatekeeper").style.display = "none";
+        }
+    </script>
 </body>
 </html>
