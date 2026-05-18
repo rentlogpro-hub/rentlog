@@ -114,6 +114,12 @@
 
     <script>
         const launchDate = new Date("May 23, 2026 00:00:00").getTime();
+
+        // 🤫 PRIVATE TESTING BACKDOOR LOGIC
+        // Checks if the active URL string contains the secret query tag "?test=true"
+        const urlParams = new URLSearchParams(window.location.search);
+        const isPrivateTestMode = urlParams.get('test') === 'true';
+
         const timerInterval = setInterval(function() {
             const now = new Date().getTime();
             const timeLeft = launchDate - now;
@@ -123,12 +129,16 @@
             const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
             document.getElementById("countdown-timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-            if (timeLeft < 0) {
+            
+            // Drop the shield if time runs out OR if your secret backdoor parameter is active
+            if (timeLeft < 0 || isPrivateTestMode) {
                 clearInterval(timerInterval);
                 document.getElementById("launch-gatekeeper").style.display = "none";
             }
         }, 1000);
-        if (new Date().getTime() >= launchDate) {
+
+        // Immediate check on load execution to prevent shield stuttering during test sessions
+        if (new Date().getTime() >= launchDate || isPrivateTestMode) {
             document.getElementById("launch-gatekeeper").style.display = "none";
         }
     </script>
