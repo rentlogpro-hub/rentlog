@@ -43,7 +43,6 @@
             color: #ffffff;
         }
 
-        /* Container framework simplified for a natural image layout */
         .logo-container {
             position: relative;
             margin: 0 auto 25px auto;
@@ -67,12 +66,11 @@
             100% { transform: scale(1.15); opacity: 0; }
         }
 
-        /* FIXED: Removed fixed box constraints, borders, and clipping */
         .app-logo {
             display: block;
-            max-width: 140px; /* Controls the size of the logo safely */
+            max-width: 140px; 
             height: auto;
-            border-radius: 18px; /* Soft corner edge for the image asset */
+            border-radius: 18px; 
             position: relative;
             z-index: 2;
         }
@@ -107,30 +105,55 @@
             margin-bottom: 30px;
         }
 
-        .wa-btn {
+        .action-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             width: 100%;
             padding: 16px 32px;
-            background: #25D366;
-            color: #ffffff;
             text-decoration: none;
             border-radius: 14px;
             font-weight: 600;
             font-size: 16px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        .wa-btn:hover {
-            background: #20ba59;
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
         }
 
-        .wa-btn:active {
+        .btn:active {
             transform: translateY(1px);
+        }
+
+        .blog-btn {
+            background: #ffffff;
+            color: #1a2a6c;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+        }
+
+        .blog-btn:hover {
+            background: #f0f0f0;
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+        }
+
+        .wa-btn {
+            background: rgba(37, 211, 102, 0.15);
+            color: #25D366;
+            border: 2px solid #25D366;
+        }
+
+        .wa-btn:hover {
+            background: #25D366;
+            color: #ffffff;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
         }
 
         .footer-note {
@@ -152,11 +175,17 @@
         <div class="status-badge">Scheduled Maintenance</div>
         <h1>System Optimization</h1>
         
-        <p>We are currently performing a scheduled upgrade to enhance your RentLog PRO dashboard and accounting speed. Your ledger data remains completely safe, and full access will be restored shortly.</p>
+        <p>We are currently staging a performance upgrade to enhance your ecosystem experience. Want to follow our deployment milestones leading up to our launch? Track our live patch notes below.</p>
         
-        <a href="https://api.whatsapp.com/send?phone=91XXXXXXXXXX&text=Hello!%20I%20need%20urgent%20assistance%20with%20RentLog%20PRO" class="wa-btn" target="_blank">
-            Connect with Support 💬
-        </a>
+        <div class="action-container">
+            <a href="updates.html" class="btn blog-btn">
+                Read Our Release Blog 🚀
+            </a>
+
+            <a href="https://api.whatsapp.com/send?phone=91XXXXXXXXXX&text=Hello!%20I%20need%20urgent%20assistance%20with%20RentLog%20PRO" class="btn wa-btn" target="_blank">
+                Connect with Support 💬
+            </a>
+        </div>
 
         <div class="footer-note">RentLog PRO Ecosystem</div>
     </div>
