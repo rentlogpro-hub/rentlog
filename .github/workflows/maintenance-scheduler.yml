@@ -1,0 +1,39 @@
+name: Daily Maintenance Gatekeeper
+
+on:
+  schedule:
+    # Runs exactly every single day at 00:00 UTC (5:30 AM IST)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows you to trigger it manually anytime for testing
+
+jobs:
+  check-and-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Parse Maintenance Settings
+        id: config
+        run: |
+          echo "TARGET_DATE=${{ vars.MAINTENANCE_DATE }}" >> $GITHUB_ENV
+          echo "TODAY=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Execute Maintenance Page Swap
+        if: env.TARGET_DATE == env.TODAY && env.TARGET_DATE != ''
+        run: |
+          echo "⚠️ Match found! Today is scheduled maintenance day. Locking down site..."
+          
+          # Backup index.html safely so we don't lose our landing page
+          cp index.html index.html.bak
+          
+          # Force maintenance.html to become the primary entry point
+          cp maintenance.html index.html
+          
+          # Commit the changes back to your GitHub repository live deployment
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "🔒 Automated System Lockdown: Active Maintenance Window Live"
+          git push
+
