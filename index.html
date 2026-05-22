@@ -63,6 +63,12 @@
         #launch-gatekeeper h1 { font-size: 46px; margin-bottom: 10px; font-weight: bold; }
         #launch-gatekeeper p { font-size: 22px; opacity: 0.9; margin-bottom: 20px; }
         #countdown-timer { font-size: 32px; font-weight: bold; background: rgba(0,0,0,0.2); padding: 15px 30px; border-radius: 10px; letter-spacing: 1px; }
+        
+        .launch-date-text { font-size: 16px; margin-top: 15px; font-weight: 500; opacity: 0.95; letter-spacing: 0.5px; }
+        
+        /* Updates Button for Countdown Screen */
+        .gatekeeper-btn { display: inline-block; margin-top: 30px; padding: 10px 25px; background: rgba(255, 255, 255, 0.15); color: white; text-decoration: none; font-weight: 600; font-size: 14px; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 20px; transition: 0.2s; }
+        .gatekeeper-btn:hover { background: white; color: var(--primary); }
     </style>
 </head>
 <body>
@@ -72,7 +78,8 @@
             <img src="logo.jpg" alt="RentLog PRO Logo" class="logo-img">
             <span class="logo-text">RentLog PRO</span>
         </a>
-        <div>
+        <div id="nav-links">
+            <!-- Updates link will dynamically appear here if live -->
             <a href="download.html" class="nav-link">Download</a>
             <a href="manual.html" class="nav-link">User Manual</a>
             <a href="support.html" class="nav-link">Support</a>
@@ -167,7 +174,7 @@
                 <h4>Quick Navigation</h4>
                 <ul>
                     <li><a href="index.html">Home Landing</a></li>
-                    <li><a href="faq.html">FAQ Page</a></li>
+                    <li><a href="updates.html">Updates & Roadmap</a></li>
                     <li><a href="download.html">Download Package</a></li>
                     <li><a href="manual.html">User Manual</a></li>
                     <li><a href="support.html">System Support</a></li>
@@ -188,41 +195,59 @@
         </div>
     </footer>
 
+    <!-- Launch Gatekeeper Overlay -->
     <div id="launch-gatekeeper">
         <img src="logo.jpg" alt="RentLog PRO Logo">
         <h1>RentLog PRO</h1>
         <p>The Ultimate Property Management App is Launching Soon!</p>
         <div id="countdown-timer">Calculating time...</div>
+        <div class="launch-date-text">Launching Saturday 23rd May at 00:00 IST</div>
+        <a href="updates.html" class="gatekeeper-btn">🗓 View Launch Updates & Roadmap</a>
     </div>
 
     <script>
-        const launchDate = new Date("May 23, 2026 00:00:00").getTime();
+        const launchDate = new Date("May 23, 2026 00:00:00 GMT+0530").getTime(); // Explicit IST Offset
 
-        // 🤫 PRIVATE TESTING BACKDOOR LOGIC
-        // Checks if the active URL string contains the secret query tag "?test=true"
         const urlParams = new URLSearchParams(window.location.search);
         const isPrivateTestMode = urlParams.get('test') === 'true';
+
+        function handleLaunchShield(isLive) {
+            const gatekeeper = document.getElementById("launch-gatekeeper");
+            const navLinks = document.getElementById("nav-links");
+            
+            if (isLive) {
+                if (gatekeeper) gatekeeper.style.display = "none";
+                // Inject the Updates tab into navigation if it's not already there
+                if (!document.getElementById("nav-updates-link")) {
+                    const updatesLink = document.createElement("a");
+                    updatesLink.href = "updates.html";
+                    updatesLink.className = "nav-link";
+                    updatesLink.id = "nav-updates-link";
+                    updatesLink.innerText = "Updates";
+                    navLinks.insertBefore(updatesLink, navLinks.firstChild);
+                }
+            }
+        }
 
         const timerInterval = setInterval(function() {
             const now = new Date().getTime();
             const timeLeft = launchDate - now;
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-            document.getElementById("countdown-timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
             
-            // Drop the shield if time runs out OR if your secret backdoor parameter is active
             if (timeLeft < 0 || isPrivateTestMode) {
                 clearInterval(timerInterval);
-                document.getElementById("launch-gatekeeper").style.display = "none";
+                handleLaunchShield(true);
+            } else {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                document.getElementById("countdown-timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
             }
         }, 1000);
 
-        // Immediate check on load execution to prevent shield stuttering during test sessions
+        // Instant safe execution check on load
         if (new Date().getTime() >= launchDate || isPrivateTestMode) {
-            document.getElementById("launch-gatekeeper").style.display = "none";
+            handleLaunchShield(true);
         }
     </script>
 </body>
