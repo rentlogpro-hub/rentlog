@@ -69,9 +69,17 @@
         /* Updates Button for Countdown Screen */
         .gatekeeper-btn { display: inline-block; margin-top: 30px; padding: 10px 25px; background: rgba(255, 255, 255, 0.15); color: white; text-decoration: none; font-weight: 600; font-size: 14px; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 20px; transition: 0.2s; }
         .gatekeeper-btn:hover { background: white; color: var(--primary); }
+
+        /* Integrated Maintenance Banner Styling */
+        #maintenance-alert-banner { display: none; background: #FF9800; color: white; text-align: center; padding: 12px; font-weight: bold; font-size: 15px; position: sticky; top: 0; z-index: 101; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
     </style>
 </head>
 <body>
+
+    <!-- Dynamic Maintenance Banner Hook Element -->
+    <div id="maintenance-alert-banner">
+        ⚠️ Attention: Scheduled network maintenance will run from <span id="window-start"></span> to <span id="window-end"></span> IST. The system app gateway will stay offline temporarily.
+    </div>
 
     <nav>
         <a href="index.html" class="logo-container">
@@ -79,7 +87,6 @@
             <span class="logo-text">RentLog PRO</span>
         </a>
         <div id="nav-links">
-            <!-- Updates link will dynamically appear here if live -->
             <a href="download.html" class="nav-link">Download</a>
             <a href="manual.html" class="nav-link">User Manual</a>
             <a href="support.html" class="nav-link">Support</a>
@@ -206,8 +213,33 @@
     </div>
 
     <script>
-        const launchDate = new Date("May 23, 2026 00:00:00 GMT+0530").getTime(); // Explicit IST Offset
+        // --- ⚙️ SINGLE POINT OF CONFIGURATION FOR FUTURE MAINTENANCE SCHEDULING ---
+        // Change these 3 parameters whenever you need to configure a new maintenance period
+        const maintenanceDate      = "2026-06-06"; // Format: YYYY-MM-DD
+        const maintenanceStartHour = "16";         // 24-Hour Clock (e.g., "16" = 4:00 PM IST)
+        const maintenanceEndHour   = "20";         // 24-Hour Clock (e.g., "20" = 8:00 PM IST)
 
+        // --- 📊 AUTOMATED WARNING DISPLAY ALGORITHM ---
+        const startTime = new Date(`${maintenanceDate}T${maintenanceStartHour.padStart(2,'0')}:00:00+05:30`);
+        const endTime   = new Date(`${maintenanceDate}T${maintenanceEndHour.padStart(2,'0')}:00:00+05:30`);
+        const nowTime   = new Date();
+
+        function formatIST(dateObj) {
+            return dateObj.toLocaleString('en-IN', {
+                timeZone: 'Asia/Kolkata', day: 'numeric', month: 'short',
+                hour: 'numeric', minute: '2-digit', hour12: true
+            });
+        }
+
+        // Show banner only if current time is before the end of the scheduled window
+        if (nowTime < endTime) {
+            document.getElementById("window-start").innerText = formatIST(startTime);
+            document.getElementById("window-end").innerText = formatIST(endTime);
+            document.getElementById("maintenance-alert-banner").style.display = "block";
+        }
+
+        // --- ⏳ PRE-EXISTING LAUNCH COUNTDOWN ENGINE ---
+        const launchDate = new Date("May 23, 2026 00:00:00 GMT+0530").getTime();
         const urlParams = new URLSearchParams(window.location.search);
         const isPrivateTestMode = urlParams.get('test') === 'true';
 
@@ -217,7 +249,6 @@
             
             if (isLive) {
                 if (gatekeeper) gatekeeper.style.display = "none";
-                // Inject the Updates tab into navigation if it's not already there
                 if (!document.getElementById("nav-updates-link")) {
                     const updatesLink = document.createElement("a");
                     updatesLink.href = "updates.html";
@@ -245,10 +276,10 @@
             }
         }, 1000);
 
-        // Instant safe execution check on load
         if (new Date().getTime() >= launchDate || isPrivateTestMode) {
             handleLaunchShield(true);
         }
     </script>
 </body>
 </html>
+
