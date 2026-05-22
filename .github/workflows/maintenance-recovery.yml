@@ -1,0 +1,34 @@
+name: Daily Maintenance Recovery
+
+on:
+  schedule:
+    # 15:00 UTC translates exactly to 8:30 PM IST
+    - cron: '0 15 * * *'
+  workflow_dispatch: # This adds a button so you can manually restore anytime
+
+jobs:
+  check-and-restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      # Step A: Check if a morning backup exists. If it does, restore it live.
+      - name: Verify and Restore Landing Page
+        run: |
+          if [ -f "index.html.bak" ]; then
+            echo "🔧 Found morning backup! Restoring your standard live website layout..."
+            
+            # 1. Delete the maintenance-cloned file and restore your original file
+            mv index.html.bak index.html
+            
+            # 2. Push the restored homepage back live to GitHub
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "🔓 Automated System Recovery: Maintenance Completed Successfully"
+            git push
+          else
+            echo "✅ No active backup file found. Site is running normally. Skipping recovery."
+          fi
+
