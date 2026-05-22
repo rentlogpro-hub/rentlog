@@ -17,63 +17,36 @@
         .container { max-width: 600px; margin: 80px auto; padding: 0 20px; text-align: center; }
         section { background: white; padding: 50px 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
         h2 { margin-bottom: 15px; color: var(--dark); font-size: 32px; }
-        .btn { display: inline-block; padding: 15px 40px; background: var(--dark); color: white; font-weight: bold; border-radius: 25px; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 20px 0; font-size: 18px; transition: 0.2s; }
+        
+        .btn { display: inline-block; padding: 15px 40px; background: var(--dark); color: white; font-weight: bold; border-radius: 25px; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 20px 0; font-size: 18px; border: none; cursor: pointer; transition: 0.2s; }
         .btn:hover { background: var(--primary); transform: translateY(-2px); }
 
-        /* 🎨 Modern Website Footer Styling */
-        footer { 
-            background: var(--dark); 
-            color: #b0b3b8; 
-            padding: 50px 10% 20px 10%; 
-            margin-top: 60px;
-            text-align: left; /* Resets container text alignment for a professional look */
-        }
-        .footer-container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
-            gap: 40px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-        }
-        .footer-brand h3 { 
-            color: white; 
-            font-size: 24px; 
-            margin-bottom: 12px; 
-            font-weight: 800; 
-        }
-        .footer-section h4 { 
-            color: white; 
-            font-size: 15px; 
-            margin-bottom: 18px; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-        }
-        .footer-section p { 
-            font-size: 14px; 
-            line-height: 1.6; 
-        }
-        .footer-section ul { 
-            list-style: none; 
-        }
-        .footer-section ul li { 
-            margin-bottom: 12px; 
-            font-size: 14px; 
-        }
-        .footer-section ul li a { 
-            color: #b0b3b8; 
-            text-decoration: none; 
-            transition: 0.2s; 
-        }
-        .footer-section ul li a:hover { 
-            color: var(--primary); 
-        }
-        .footer-bottom { 
-            border-top: 1px solid #333; 
-            margin-top: 40px; 
-            padding-top: 20px; 
-            text-align: center; 
-            font-size: 13px; 
-        }
+        /* Modern Website Footer Styling */
+        footer { background: var(--dark); color: #b0b3b8; padding: 50px 10% 20px 10%; margin-top: 60px; text-align: left; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .footer-brand h3 { color: white; font-size: 24px; margin-bottom: 12px; font-weight: 800; }
+        .footer-section h4 { color: white; font-size: 15px; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-section p { font-size: 14px; line-height: 1.6; }
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 12px; font-size: 14px; }
+        .footer-section ul li a { color: #b0b3b8; text-decoration: none; transition: 0.2s; }
+        .footer-section ul li a:hover { color: var(--primary); }
+        .footer-bottom { border-top: 1px solid #333; margin-top: 40px; padding-top: 20px; text-align: center; font-size: 13px; }
+
+        /* 🚪 Registration Overlay Modal Frame */
+        .modal-overlay { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); }
+        .modal-wrapper { background: white; margin: 12% auto; padding: 35px 25px; width: 90%; max-width: 440px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); position: relative; text-align: center; }
+        .close-trigger { position: absolute; right: 20px; top: 12px; font-size: 26px; cursor: pointer; color: #aaa; transition: 0.2s; }
+        .close-trigger:hover { color: #333; }
+        .modal-wrapper h3 { font-size: 22px; color: var(--dark); margin-bottom: 10px; font-weight: 700; }
+        .modal-wrapper p { font-size: 14px; color: #666; margin-bottom: 25px; }
+        
+        /* Form Field Components */
+        .modal-wrapper input { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid #ccd1d9; border-radius: 6px; box-sizing: border-box; font-size: 15px; background: #fafbfc; transition: 0.2s; }
+        .modal-wrapper input:focus { border-color: var(--primary); outline: none; background: white; }
+        .submit-download-btn { background: #28a745; color: white; width: 100%; padding: 14px; border: none; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 3px 6px rgba(40,167,69,0.2); transition: 0.2s; }
+        .submit-download-btn:hover { background: #218838; transform: translateY(-1px); }
+        .submit-download-btn:disabled { background: #a8dcb5; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -93,9 +66,32 @@
         <section>
             <h2>Get RentLog PRO</h2>
             <p>Download the official, deployment-ready production installation package for Android.</p>
-            <a href="RentLog_PRO.apk" class="btn" download>Download RentLog .APK</a>
+            
+            <!-- Intercept button toggles popup overlay interface panel -->
+            <button class="btn" onclick="toggleRegistrationModal(true)">Download RentLog .APK</button>
+            
             <p style="font-size: 13px; color: #777;">System Requirements: Android 6.0 (API Level 23) or higher.</p>
         </section>
+    </div>
+
+    <!-- Registration Gateway Capture Overlay Panel Container -->
+    <div id="registrationGate" class="modal-overlay">
+        <div class="modal-wrapper">
+            <span class="close-trigger" onclick="toggleRegistrationModal(false)">&times;</span>
+            <h3>Verification Required</h3>
+            <p>Please enter your details to initialize your primary security workspace credentials.</p>
+            
+            <!-- 📨 FORMSPREE TARGET CONFIGURATION FRAME (Replace with your actual unique form endpoint ID) -->
+            <form id="leadCaptureForm" action="https://formspree.io/f/YOUR_UNIQUE_FORM_ID_HERE" method="POST">
+                <input type="text" name="Client Name" placeholder="Full Name" required>
+                <input type="email" name="Client Email" placeholder="Email Address" required>
+                
+                <!-- Silent Honeypot Bot Trap protection -->
+                <input type="text" name="_gotcha" style="display:none">
+                
+                <button type="submit" id="gateSubmitElement" class="submit-download-btn">Verify & Start Download</button>
+            </form>
+        </div>
     </div>
 
     <footer>
@@ -129,5 +125,47 @@
             <p>&copy; 2026 RentLog PRO. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        const gateOverlay = document.getElementById("registrationGate");
+        const submissionForm = document.getElementById("leadCaptureForm");
+        const actionButton = document.getElementById("gateSubmitElement");
+
+        function toggleRegistrationModal(displayState) {
+            gateOverlay.style.display = displayState ? "block" : "none";
+        }
+
+        submissionForm.addEventListener("submit", async function(event) {
+            event.preventDefault(); // Stop standard redirect routine execution
+            
+            actionButton.disabled = true;
+            actionButton.innerText = "Staging Download...";
+
+            const packetData = new FormData(submissionForm);
+
+            try {
+                const networkResponse = await fetch(submissionForm.action, {
+                    method: submissionForm.method,
+                    body: packetData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (networkResponse.ok) {
+                    toggleRegistrationModal(false);
+                    submissionForm.reset();
+                    
+                    // Directly execute system storage transfer link trigger safely
+                    window.location.href = "RentLog_PRO.apk";
+                } else {
+                    alert("Submission capture gateway encountered an error. Please verify input fields.");
+                }
+            } catch (networkFault) {
+                alert("Communication error tracking registration. Please verify connection details.");
+            } finally {
+                actionButton.disabled = false;
+                actionButton.innerText = "Verify & Start Download";
+            }
+        });
+    </script>
 </body>
 </html>
