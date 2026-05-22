@@ -214,28 +214,29 @@
 
     <script>
         // --- ⚙️ SINGLE POINT OF CONFIGURATION FOR FUTURE MAINTENANCE SCHEDULING ---
-        // Change these 3 parameters whenever you need to configure a new maintenance period
-        const maintenanceDate      = "2026-06-06"; // Format: YYYY-MM-DD
-        const maintenanceStartHour = "16";         // 24-Hour Clock (e.g., "16" = 4:00 PM IST)
-        const maintenanceEndHour   = "20";         // 24-Hour Clock (e.g., "20" = 8:00 PM IST)
+        // Kept totally blank for now. Put your values here only when ready to announce maintenance!
+        const maintenanceDate      = ""; // Format target example: "2026-06-06"
+        const maintenanceStartHour = ""; // 24-Hour scale example: "16"
+        const maintenanceEndHour   = ""; // 24-Hour scale example: "20"
 
         // --- 📊 AUTOMATED WARNING DISPLAY ALGORITHM ---
-        const startTime = new Date(`${maintenanceDate}T${maintenanceStartHour.padStart(2,'0')}:00:00+05:30`);
-        const endTime   = new Date(`${maintenanceDate}T${maintenanceEndHour.padStart(2,'0')}:00:00+05:30`);
-        const nowTime   = new Date();
+        if (maintenanceDate && maintenanceStartHour && maintenanceEndHour) {
+            const startTime = new Date(`${maintenanceDate}T${maintenanceStartHour.padStart(2,'0')}:00:00+05:30`);
+            const endTime   = new Date(`${maintenanceDate}T${maintenanceEndHour.padStart(2,'0')}:00:00+05:30`);
+            const nowTime   = new Date();
 
-        function formatIST(dateObj) {
-            return dateObj.toLocaleString('en-IN', {
-                timeZone: 'Asia/Kolkata', day: 'numeric', month: 'short',
-                hour: 'numeric', minute: '2-digit', hour12: true
-            });
-        }
+            function formatIST(dateObj) {
+                return dateObj.toLocaleString('en-IN', {
+                    timeZone: 'Asia/Kolkata', day: 'numeric', month: 'short',
+                    hour: 'numeric', minute: '2-digit', hour12: true
+                });
+            }
 
-        // Show banner only if current time is before the end of the scheduled window
-        if (nowTime < endTime) {
-            document.getElementById("window-start").innerText = formatIST(startTime);
-            document.getElementById("window-end").innerText = formatIST(endTime);
-            document.getElementById("maintenance-alert-banner").style.display = "block";
+            if (nowTime < endTime) {
+                document.getElementById("window-start").innerText = formatIST(startTime);
+                document.getElementById("window-end").innerText = formatIST(endTime);
+                document.getElementById("maintenance-alert-banner").style.display = "block";
+            }
         }
 
         // --- ⏳ PRE-EXISTING LAUNCH COUNTDOWN ENGINE ---
