@@ -82,17 +82,17 @@
             <!-- 📨 CLEAN TARGET MAPPED FORM -->
             <form id="leadCaptureForm" action="https://formspree.io/f/xkoebonp" method="POST">
                 
-                <!-- Explicit Subject Line configuration mapping -->
+                <!-- Custom Subject Line configuration mapping -->
                 <input type="hidden" name="_subject" value="Your RentLog PRO Download Link & Confirmation">
                 
                 <!-- Native File Delivery Path Routing -->
                 <input type="hidden" name="_next" value="https://rentlogpro-hub.github.io/RentLog_PRO.apk">
 
-                <!-- Primary Named Field Components to match dashboard headers exactly -->
+                <!-- Replaced 'name' and 'email' attributes to point directly to pre-existing dashboard columns -->
                 <input type="text" id="formNameField" name="Client Name" placeholder="Full Name" required>
                 <input type="email" id="formEmailField" name="Client Email" placeholder="Email Address" required>
                 
-                <!-- Cleaned up fields to drop duplicate labels -->
+                <!-- Replaced 'assigned_user_id' with 'User Number' -->
                 <input type="hidden" id="userNumberField" name="User Number">
                 <input type="hidden" id="formMessageField" name="message">
                 
@@ -150,19 +150,17 @@
             }
         }
 
-        // Compiles data fields into structured payloads upon execution tracking
+        // Formats data payload fields upon submission tracking
         submissionForm.addEventListener("submit", function() {
             const userName = formNameField.value;
-            const userID = userNumberField.value;
             
-            // Populating your original message format into the hidden input
+            // Re-structured exact message formatting injected with the user's name
             formMessageField.value = 
-                `Thank you for downloading RentLog PRO!\n\n` +
-                `Hi ${userName},\n\n` +
-                `We wanted to let you know that your download request was successful, and your contact details have been safely saved for future system updates or conversational logs.\n\n` +
-                `If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.\n\n` +
-                `Assigned Token: ${userID}\n\n` +
-                `Best regards,\nThe RentLog PRO Team`;
+                `Thank you for downloading RentLog PRO!\n` +
+                `We wanted to let you know that your download request was successful, and your contact details have been safely saved for future system updates or conversational logs.\n` +
+                `If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.\n` +
+                `Best regards,\n` +
+                `The RentLog PRO Team.. but i want it to go like this along woth yhe persons nane: ${userName}`;
 
             actionButton.disabled = true;
             actionButton.innerText = "Staging Download...";
