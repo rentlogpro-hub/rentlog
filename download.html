@@ -77,25 +77,26 @@
         <div class="modal-wrapper">
             <span class="close-trigger" onclick="toggleRegistrationModal(false)">&times;</span>
             <h3>Verification Required</h3>
-            <p>Please enter your details to download the production build package.</p>
+            <p>Please enter your details to initialize your primary security workspace credentials.</p>
             
-            <!-- 📨 STANDARD PURE HTML FORMSPREE SUBMISSION -->
+            <!-- 📨 CLEAN TARGET MAPPED FORM -->
             <form id="leadCaptureForm" action="https://formspree.io/f/xkoebonp" method="POST">
                 
-                <!-- Email Subject for YOUR inbox notifications -->
-                <input type="hidden" name="_subject" value="New RentLog PRO Download Registration">
+                <!-- Explicit Subject Line configuration mapping -->
+                <input type="hidden" name="_subject" value="Your RentLog PRO Download Link & Confirmation">
                 
-                <!-- Formspree built-in success redirect. It points straight to your APK file! -->
+                <!-- Native File Delivery Path Routing -->
                 <input type="hidden" name="_next" value="https://rentlogpro-hub.github.io/RentLog_PRO.apk">
 
-                <!-- Basic Fields -->
-                <input type="text" name="name" placeholder="Full Name" required>
-                <input type="email" name="email" placeholder="Email Address" required>
+                <!-- Primary Named Field Components to match dashboard headers exactly -->
+                <input type="text" id="formNameField" name="Client Name" placeholder="Full Name" required>
+                <input type="email" id="formEmailField" name="Client Email" placeholder="Email Address" required>
                 
-                <!-- Automatically generated system tracking token -->
-                <input type="hidden" id="userNumberField" name="assigned_user_id">
+                <!-- Cleaned up fields to drop duplicate labels -->
+                <input type="hidden" id="userNumberField" name="User Number">
+                <input type="hidden" id="formMessageField" name="message">
                 
-                <!-- Spam Protection Honeypot -->
+                <!-- Silent Honeypot Bot Trap protection -->
                 <input type="text" name="_gotcha" style="display:none">
                 
                 <button type="submit" id="gateSubmitElement" class="submit-download-btn">Verify & Start Download</button>
@@ -138,20 +139,33 @@
         const submissionForm = document.getElementById("leadCaptureForm");
         const actionButton = document.getElementById("gateSubmitElement");
         const userNumberField = document.getElementById("userNumberField");
+        const formNameField = document.getElementById("formNameField");
+        const formMessageField = document.getElementById("formMessageField");
 
         function toggleRegistrationModal(displayState) {
             gateOverlay.style.display = displayState ? "block" : "none";
             if (displayState) {
-                // Generates a clean identifier token right when they open the window
+                // Generates the active dynamic sequence ID
                 userNumberField.value = "RL-" + Math.floor(Date.now() / 1000);
             }
         }
 
-        // Native submission hook
+        // Compiles data fields into structured payloads upon execution tracking
         submissionForm.addEventListener("submit", function() {
+            const userName = formNameField.value;
+            const userID = userNumberField.value;
+            
+            // Populating your original message format into the hidden input
+            formMessageField.value = 
+                `Thank you for downloading RentLog PRO!\n\n` +
+                `Hi ${userName},\n\n` +
+                `We wanted to let you know that your download request was successful, and your contact details have been safely saved for future system updates or conversational logs.\n\n` +
+                `If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.\n\n` +
+                `Assigned Token: ${userID}\n\n` +
+                `Best regards,\nThe RentLog PRO Team`;
+
             actionButton.disabled = true;
-            actionButton.innerText = "Starting Download...";
-            // Let the form submit naturally to Formspree without interrupting it!
+            actionButton.innerText = "Staging Download...";
         });
     </script>
 </body>
