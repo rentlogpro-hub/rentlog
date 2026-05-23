@@ -89,11 +89,11 @@
                 <input type="hidden" name="_replyto" value="%EMAIL%">
                 <input type="hidden" name="_subject" value="Your RentLog PRO Download Link & Confirmation">
 
-                <!-- Standard Form Inputs to keep Formspree's API happy -->
+                <!-- Standard Form Inputs -->
                 <input type="text" id="formNameField" name="name" placeholder="Full Name" required>
                 <input type="email" name="email" placeholder="Email Address" required>
                 
-                <!-- This hidden field will store the fully formatted letter output -->
+                <!-- Explicit hidden string storage for backend mapping -->
                 <input type="hidden" id="formMessageField" name="message">
                 <input type="hidden" id="userNumberField" name="assigned_user_id">
                 
@@ -155,26 +155,26 @@
         }
 
         submissionForm.addEventListener("submit", async function(event) {
-            event.preventDefault(); 
-            
-            actionButton.disabled = true;
-            actionButton.innerText = "Staging Download...";
-
-            // 📝 Constructing the text block structure safely into Formspree's primary text field
+            // Build the message value right before the data is serialized
             const userName = formNameField.value;
             const userID = userNumberField.value;
             
             formMessageField.value = 
                 `Thank you for downloading RentLog PRO!\n\n` +
-                `Thank you for downloading RentLog PRO!\n` +
+                `Hi ${userName},\n\n` +
                 `We wanted to let you know that your download request was successful, and your contact details have been safely saved for future system updates or conversational logs.\n\n` +
                 `If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.\n\n` +
                 `Assigned Token: ${userID}\n\n` +
                 `Best regards,\nThe RentLog PRO Team`;
 
-            const packetData = new FormData(submissionForm);
-
+            // If Formspree API fails to parse via AJAX background fetch, we drop the handler 
+            // and let the browser execute a clean standard form submit direct to the endpoint.
             try {
+                event.preventDefault(); 
+                actionButton.disabled = true;
+                actionButton.innerText = "Staging Download...";
+
+                const packetData = new FormData(submissionForm);
                 const networkResponse = await fetch(submissionForm.action, {
                     method: submissionForm.method,
                     body: packetData,
@@ -184,16 +184,16 @@
                 if (networkResponse.ok) {
                     toggleRegistrationModal(false);
                     submissionForm.reset();
-                    
                     window.location.href = "RentLog_PRO.apk";
                 } else {
-                    alert("Submission capture gateway encountered an error. Please verify input fields.");
+                    // Fallback to direct native form transmission execution if background fetch errors out
+                    console.warn("AJAX interface rejected, fallback to native post protocol.");
+                    submissionForm.submit();
                 }
             } catch (networkFault) {
-                alert("Communication error tracking registration. Please verify connection details.");
-            } finally {
-                actionButton.disabled = false;
-                actionButton.innerText = "Verify & Start Download";
+                // Network drop fallback
+                console.warn("Network fault intercepted, dropping fallback wrapper frame.");
+                submissionForm.submit();
             }
         });
     </script>
