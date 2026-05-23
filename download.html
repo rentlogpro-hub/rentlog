@@ -82,10 +82,14 @@
             <h3>Verification Required</h3>
             <p>Please enter your details to initialize your primary security workspace credentials.</p>
             
-            <!-- 📨 FORMSPREE TARGET CONFIGURATION FRAME (Replace with your actual unique form endpoint ID) -->
+            <!-- 📨 FORMSPREE TARGET CONFIGURATION FRAME -->
             <form id="leadCaptureForm" action="https://formspree.io/f/xkoebonp" method="POST">
+                <!-- Autopilot User Number field injected silently via JavaScript -->
+                <input type="hidden" id="userNumberField" name="User Number">
+
                 <input type="text" name="Client Name" placeholder="Full Name" required>
-                <input type="email" name="Client Email" placeholder="Email Address" required>
+                <!-- Formspree targets this name="email" attribute to map your autoresponder reply -->
+                <input type="email" name="email" placeholder="Email Address" required>
                 
                 <!-- Silent Honeypot Bot Trap protection -->
                 <input type="text" name="_gotcha" style="display:none">
@@ -132,9 +136,15 @@
         const gateOverlay = document.getElementById("registrationGate");
         const submissionForm = document.getElementById("leadCaptureForm");
         const actionButton = document.getElementById("gateSubmitElement");
+        const userNumberField = document.getElementById("userNumberField");
 
         function toggleRegistrationModal(displayState) {
             gateOverlay.style.display = displayState ? "block" : "none";
+            
+            // Generate a unique sequential token each time the interface overlay expands
+            if (displayState) {
+                userNumberField.value = "RL-" + Math.floor(Date.now() / 1000);
+            }
         }
 
         submissionForm.addEventListener("submit", async function(event) {
