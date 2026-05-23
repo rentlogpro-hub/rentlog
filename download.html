@@ -7,7 +7,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            // 🔑 STEP 1: REPLACE THIS WITH YOUR ACTUAL EMAILJS PUBLIC KEY
+            // Your Live EmailJS Public Key
             emailjs.init("G_h-fRVckxDt2J-oj");
         })();
     </script>
@@ -149,38 +149,42 @@
 
             const userName = formNameField.value;
             const userEmail = formEmailField.value;
+            const userNumber = userNumberField.value; // ✅ FIXED: Explicitly defined so the text field can read it!
 
             actionButton.disabled = true;
             actionButton.innerText = "Staging Download...";
 
-           
             // 📨 The exact layout string configuration with expanded spacing
-const exactEmailBodyText = 
-    `Thank you for downloading RentLog PRO! ${userName}\n\n` +
-    `We wanted to let you know that your download request was successful, and your contact details have been safely saved for future system updates or conversational logs.\n\n` +
-    `If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.\n\n` +
-    `Registration Details:\n` +
-    `• User Number: ${userNumber}\n` +
-    `• Registered Email: ${userEmail}\n\n` +
-    `Best regards,\n\n` +
-    `The RentLog PRO Team`;
+            const exactEmailBodyText = 
+                `Thank you for downloading RentLog PRO! ${userName}\n\n` +
+                `We wanted to let you know that your download request was successful, and your contact details have been safely saved for future system updates or conversational logs.\n\n` +
+                `If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.\n\n` +
+                `Registration Details:\n` +
+                `• User Number: ${userNumber}\n` +
+                `• Registered Email: ${userEmail}\n\n` +
+                `Best regards,\n\n` +
+                `The RentLog PRO Team`;
 
             const templateParams = {
                 client_email: userEmail,
                 email_body: exactEmailBodyText
             };
 
-            // 📤 2. Run the EmailJS system dispatch
-            // 🔑 STEP 2: REPLACE WITH YOUR ACTUAL SERVICE_ID AND TEMPLATE_ID
-            emailjs.send("service_8jncmgr", "template_no03ije", templateParams)
-                .then(function(response) {
-                    console.log("EmailJS Auto-Response Sent!", response.status, response.text);
-                    executeBackendStorageAndDownload();
-                }, function(error) {
-                    console.error("EmailJS Transfer Failed...", error);
-                    // Fallback to save data and complete workflow even if email system breaks
-                    executeBackendStorageAndDownload();
-                });
+            // 📤 Safe EmailJS Execution block
+            try {
+                emailjs.send("service_8jncmgr", "template_no03ije", templateParams)
+                    .then(function(response) {
+                        console.log("EmailJS Auto-Response Sent!", response.status, response.text);
+                        executeBackendStorageAndDownload();
+                    }, function(error) {
+                        console.error("EmailJS Transfer Failed...", error);
+                        // Fallback: Continue processing the workflow even if EmailJS blocks it
+                        executeBackendStorageAndDownload();
+                    });
+            } catch (err) {
+                console.error("Critical EmailJS error caught:", err);
+                executeBackendStorageAndDownload();
+            }
 
             // 💾 3. Submit data directly to Formspree, then trigger download drop
             function executeBackendStorageAndDownload() {
