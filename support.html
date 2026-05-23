@@ -29,6 +29,33 @@
         form button { background: var(--primary); color: white; border: none; padding: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 16px; transition: 0.2s; }
         form button:hover { background: #1976D2; }
 
+        /* 📝 Feedback Redirect Section Callout */
+        .feedback-cta {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 2px dashed var(--light);
+            text-align: center;
+        }
+        .feedback-cta p {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+        .btn-feedback {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 6px;
+            font-size: 14px;
+            padding: 10px 20px;
+        }
+        .btn-feedback:hover {
+            background: var(--primary);
+            color: white;
+            transform: none;
+            opacity: 1;
+        }
+
         /* 🎨 Modern Website Footer Styling */
         footer { 
             background: var(--dark); 
@@ -128,6 +155,12 @@
                 </div>
                 <button type="submit">Submit Request</button>
             </form>
+
+            <!-- 💡 Feedback Callout Added Directly Below The Form -->
+            <div class="feedback-cta">
+                <p>Looking to suggest a feature or share app improvement ideas?</p>
+                <a href="feedback.html" class="btn btn-feedback">Share Feature Feedback &rarr;</a>
+            </div>
         </section>
     </div>
 
@@ -145,7 +178,7 @@
                     <li><a href="faq.html">FAQ Page</a></li>
                     <li><a href="download.html">Download Package</a></li>
                     <li><a href="manual.html">User Manual</a></li>
-                    <li><a href="support.html">System Support</a></li>
+                    <li><a href="support.html">Support Portal</a></li>
                 </ul>
             </div>
             
