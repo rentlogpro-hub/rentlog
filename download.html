@@ -1,201 +1,365 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Download - RentLog PRO</title>
+
     <style>
+
         :root { --primary: #2196F3; --dark: #1E1E24; --light: #F4F6F9; --text: #333; }
+
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
         body { color: var(--text); background: var(--light); line-height: 1.6; }
+
         nav { background: white; padding: 10px 10%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
         .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+
         .logo-img { height: 40px; width: auto; object-fit: contain; }
+
         .logo-text { font-weight: 800; font-size: 22px; color: var(--primary); letter-spacing: 0.5px; }
+
         nav a.nav-link { text-decoration: none; color: #555; margin-left: 20px; font-weight: 500; }
+
         nav a.nav-link:hover { color: var(--primary); }
+
         .container { max-width: 600px; margin: 80px auto; padding: 0 20px; text-align: center; }
+
         section { background: white; padding: 50px 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+
         h2 { margin-bottom: 15px; color: var(--dark); font-size: 32px; }
+
         
+
         .btn { display: inline-block; padding: 15px 40px; background: var(--dark); color: white; font-weight: bold; border-radius: 25px; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin: 20px 0; font-size: 18px; border: none; cursor: pointer; transition: 0.2s; }
+
         .btn:hover { background: var(--primary); transform: translateY(-2px); }
 
+
+
         /* Modern Website Footer Styling */
+
         footer { background: var(--dark); color: #b0b3b8; padding: 50px 10% 20px 10%; margin-top: 60px; text-align: left; }
+
         .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+
         .footer-brand h3 { color: white; font-size: 24px; margin-bottom: 12px; font-weight: 800; }
+
         .footer-section h4 { color: white; font-size: 15px; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; }
+
         .footer-section p { font-size: 14px; line-height: 1.6; }
+
         .footer-section ul { list-style: none; }
+
         .footer-section ul li { margin-bottom: 12px; font-size: 14px; }
+
         .footer-section ul li a { color: #b0b3b8; text-decoration: none; transition: 0.2s; }
+
         .footer-section ul li a:hover { color: var(--primary); }
+
         .footer-bottom { border-top: 1px solid #333; margin-top: 40px; padding-top: 20px; text-align: center; font-size: 13px; }
 
+
+
         /* 🚪 Registration Overlay Modal Frame */
+
         .modal-overlay { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); }
+
         .modal-wrapper { background: white; margin: 12% auto; padding: 35px 25px; width: 90%; max-width: 440px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); position: relative; text-align: center; }
+
         .close-trigger { position: absolute; right: 20px; top: 12px; font-size: 26px; cursor: pointer; color: #aaa; transition: 0.2s; }
+
         .close-trigger:hover { color: #333; }
+
         .modal-wrapper h3 { font-size: 22px; color: var(--dark); margin-bottom: 10px; font-weight: 700; }
+
         .modal-wrapper p { font-size: 14px; color: #666; margin-bottom: 25px; }
+
         
+
         /* Form Field Components */
+
         .modal-wrapper input { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid #ccd1d9; border-radius: 6px; box-sizing: border-box; font-size: 15px; background: #fafbfc; transition: 0.2s; }
+
         .modal-wrapper input:focus { border-color: var(--primary); outline: none; background: white; }
+
         .submit-download-btn { background: #28a745; color: white; width: 100%; padding: 14px; border: none; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 3px 6px rgba(40,167,69,0.2); transition: 0.2s; }
+
         .submit-download-btn:hover { background: #218838; transform: translateY(-1px); }
+
         .submit-download-btn:disabled { background: #a8dcb5; cursor: not-allowed; }
+
     </style>
+
 </head>
+
 <body>
+
     <nav>
+
         <a href="index.html" class="logo-container">
+
             <img src="logo.jpg" alt="RentLog PRO Logo" class="logo-img">
+
             <span class="logo-text">RentLog PRO</span>
+
         </a>
+
         <div>
+
             <a href="index.html" class="nav-link">Home</a>
+
             <a href="manual.html" class="nav-link">User Manual</a>
+
             <a href="support.html" class="nav-link">Support</a>
+
             <a href="feedback.html" class="nav-link">Feedback</a>
+
         </div>
+
     </nav>
 
+
+
     <div class="container">
+
         <section>
+
             <h2>Get RentLog PRO</h2>
+
             <p>Download the official, deployment-ready production installation package for Android.</p>
+
             
+
             <!-- Intercept button toggles popup overlay interface panel -->
+
             <button class="btn" onclick="toggleRegistrationModal(true)">Download RentLog .APK</button>
+
             
+
             <p style="font-size: 13px; color: #777;">System Requirements: Android 6.0 (API Level 23) or higher.</p>
+
         </section>
+
     </div>
+
+
 
     <!-- Registration Gateway Capture Overlay Panel Container -->
-    <div id="registrationGate" class="modal-overlay">
-        <div class="modal-wrapper">
-            <span class="close-trigger" onclick="toggleRegistrationModal(false)">&times;</span>
-            <h3>Verification Required</h3>
-            <p>Please enter your details to initialize your primary security workspace credentials.</p>
-            
-            <!-- 📨 FORMSPREE TARGET CONFIGURATION FRAME -->
-<form id="leadCaptureForm" action="https://formspree.io/f/xkoebonp" method="POST">
-    
-    <!-- 1. Email Subject Line Config Override -->
-    <input type="hidden" name="_subject" value="Your RentLog PRO Download Link & Confirmation">
 
-    <!-- Standard Form Inputs (Formspree uses name="email" automatically for replies) -->
-    <input type="text" id="formNameField" name="name" placeholder="Full Name" required>
-    <input type="email" name="email" placeholder="Email Address" required>
-    
-    <!-- Dynamic Text Block Storage Fields -->
-    <input type="hidden" id="formMessageField" name="message">
-    <input type="hidden" id="userNumberField" name="assigned_user_id">
-    
-    <!-- Silent Honeypot Bot Trap protection -->
-    <input type="text" name="_gotcha" style="display:none">
-    
-    <button type="submit" id="gateSubmitElement" class="submit-download-btn">Verify & Start Download</button>
-</form>
+    <div id="registrationGate" class="modal-overlay">
+
+        <div class="modal-wrapper">
+
+            <span class="close-trigger" onclick="toggleRegistrationModal(false)">&times;</span>
+
+            <h3>Verification Required</h3>
+
+            <p>Please enter your details to initialize your primary security workspace credentials.</p>
+
+            
+
+            <!-- 📨 FORMSPREE TARGET CONFIGURATION FRAME -->
+
+            <form id="leadCaptureForm" action="https://formspree.io/f/xkoebonp" method="POST">
+
+                <!-- Autopilot User Number field injected silently via JavaScript -->
+
+                <input type="hidden" id="userNumberField" name="User Number">
+
+
+
+                <input type="text" name="Client Name" placeholder="Full Name" required>
+
+                <!-- Formspree targets this name="email" attribute to map your autoresponder reply -->
+
+                <input type="email" name="email" placeholder="Email Address" required>
+
+                
+
+                <!-- Silent Honeypot Bot Trap protection -->
+
+                <input type="text" name="_gotcha" style="display:none">
+
+                
+
+                <button type="submit" id="gateSubmitElement" class="submit-download-btn">Verify & Start Download</button>
+
+            </form>
 
         </div>
+
     </div>
 
+
+
     <footer>
+
         <div class="footer-container">
+
             <div class="footer-section footer-brand">
+
                 <h3>RentLog PRO</h3>
+
                 <p>The ultimate offline-first real estate ledger designed explicitly for administrative landlords and housing managers.</p>
+
             </div>
+
             
+
             <div class="footer-section">
+
                 <h4>Quick Navigation</h4>
+
                 <ul>
+
                     <li><a href="index.html">Home Landing</a></li>
+
                     <li><a href="faq.html">FAQ Page</a></li>
+
                     <li><a href="download.html">Download Package</a></li>
+
                     <li><a href="manual.html">User Manual</a></li>
+
                     <li><a href="support.html">System Support</a></li>
+
                     <li><a href="feedback.html">Submit Feedback</a></li>
+
                 </ul>
+
             </div>
+
             
+
             <div class="footer-section">
+
                 <h4>Connect with Us</h4>
+
                 <ul>
+
                     <li>📧 <a href="mailto:rentlogpro@gmail.com">rentlogpro@gmail.com</a></li>
+
                     <li>💬 <a href="https://wa.me/919892758104" target="_blank">WhatsApp Chat</a></li>
+
                 </ul>
+
             </div>
+
         </div>
+
         
+
         <div class="footer-bottom">
+
             <p>&copy; 2026 RentLog PRO. All Rights Reserved.</p>
+
         </div>
+
     </footer>
 
+
+
     <script>
+
         const gateOverlay = document.getElementById("registrationGate");
+
         const submissionForm = document.getElementById("leadCaptureForm");
+
         const actionButton = document.getElementById("gateSubmitElement");
+
         const userNumberField = document.getElementById("userNumberField");
-        const formNameField = document.getElementById("formNameField");
-        const formMessageField = document.getElementById("formMessageField");
+
+
 
         function toggleRegistrationModal(displayState) {
+
             gateOverlay.style.display = displayState ? "block" : "none";
+
             
+
+            // Generate a unique sequential token each time the interface overlay expands
+
             if (displayState) {
+
                 userNumberField.value = "RL-" + Math.floor(Date.now() / 1000);
+
             }
+
         }
 
+
+
         submissionForm.addEventListener("submit", async function(event) {
-            // Build the message value right before the data is serialized
-            const userName = formNameField.value;
-            const userID = userNumberField.value;
+
+            event.preventDefault(); // Stop standard redirect routine execution
+
             
-            formMessageField.value = 
-                `Thank you for downloading RentLog PRO!\n\n` +
-                `Hi ${userName},\n\n` +
-                `We wanted to let you know that your download request was successful, and your contact details have been safely saved for future system updates or conversational logs.\n\n` +
-                `If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.\n\n` +
-                `Assigned Token: ${userID}\n\n` +
-                `Best regards,\nThe RentLog PRO Team`;
 
-            // If Formspree API fails to parse via AJAX background fetch, we drop the handler 
-            // and let the browser execute a clean standard form submit direct to the endpoint.
+            actionButton.disabled = true;
+
+            actionButton.innerText = "Staging Download...";
+
+
+
+            const packetData = new FormData(submissionForm);
+
+
+
             try {
-                event.preventDefault(); 
-                actionButton.disabled = true;
-                actionButton.innerText = "Staging Download...";
 
-                const packetData = new FormData(submissionForm);
                 const networkResponse = await fetch(submissionForm.action, {
+
                     method: submissionForm.method,
+
                     body: packetData,
+
                     headers: { 'Accept': 'application/json' }
+
                 });
 
+
+
                 if (networkResponse.ok) {
+
                     toggleRegistrationModal(false);
+
                     submissionForm.reset();
+
+                    
+
+                    // Directly execute system storage transfer link trigger safely
+
                     window.location.href = "RentLog_PRO.apk";
+
                 } else {
-                    // Fallback to direct native form transmission execution if background fetch errors out
-                    console.warn("AJAX interface rejected, fallback to native post protocol.");
-                    submissionForm.submit();
+
+                    alert("Submission capture gateway encountered an error. Please verify input fields.");
+
                 }
+
             } catch (networkFault) {
-                // Network drop fallback
-                console.warn("Network fault intercepted, dropping fallback wrapper frame.");
-                submissionForm.submit();
+
+                alert("Communication error tracking registration. Please verify connection details.");
+
+            } finally {
+
+                actionButton.disabled = false;
+
+                actionButton.innerText = "Verify & Start Download";
+
             }
+
         });
+
     </script>
+
 </body>
+
 </html>
