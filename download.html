@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download - RentLog PRO</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // 🔑 STEP 1: REPLACE THIS WITH YOUR ACTUAL EMAILJS PUBLIC KEY
+            emailjs.init("G_h-fRVckxDt2J-oj");
+        })();
+    </script>
     <style>
         :root { --primary: #2196F3; --dark: #1E1E24; --light: #F4F6F9; --text: #333; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
@@ -72,31 +79,17 @@
         </section>
     </div>
 
-    <!-- Registration Gateway Capture Overlay Panel Container -->
     <div id="registrationGate" class="modal-overlay">
         <div class="modal-wrapper">
             <span class="close-trigger" onclick="toggleRegistrationModal(false)">&times;</span>
             <h3>Verification Required</h3>
             <p>Please enter your details to initialize your primary security workspace credentials.</p>
             
-            <!-- 📨 CLEAN TARGET MAPPED FORM -->
             <form id="leadCaptureForm" action="https://formspree.io/f/xkoebonp" method="POST">
-                
-                <!-- Custom Subject Line configuration mapping -->
-                <input type="hidden" name="_subject" value="Your RentLog PRO Download Link & Confirmation">
-                
-                <!-- Native File Delivery Path Routing -->
-                <input type="hidden" name="_next" value="https://rentlogpro-hub.github.io/RentLog_PRO.apk">
-
-                <!-- Replaced 'name' and 'email' attributes to point directly to pre-existing dashboard columns -->
                 <input type="text" id="formNameField" name="Client Name" placeholder="Full Name" required>
                 <input type="email" id="formEmailField" name="Client Email" placeholder="Email Address" required>
-                
-                <!-- Replaced 'assigned_user_id' with 'User Number' -->
                 <input type="hidden" id="userNumberField" name="User Number">
-                <input type="hidden" id="formMessageField" name="message">
                 
-                <!-- Silent Honeypot Bot Trap protection -->
                 <input type="text" name="_gotcha" style="display:none">
                 
                 <button type="submit" id="gateSubmitElement" class="submit-download-btn">Verify & Start Download</button>
@@ -140,30 +133,84 @@
         const actionButton = document.getElementById("gateSubmitElement");
         const userNumberField = document.getElementById("userNumberField");
         const formNameField = document.getElementById("formNameField");
-        const formMessageField = document.getElementById("formMessageField");
+        const formEmailField = document.getElementById("formEmailField");
 
         function toggleRegistrationModal(displayState) {
             gateOverlay.style.display = displayState ? "block" : "none";
             if (displayState) {
-                // Generates the active dynamic sequence ID
+                // Generates the active unique User Number sequence ID
                 userNumberField.value = "RL-" + Math.floor(Date.now() / 1000);
             }
         }
 
-        // Formats data payload fields upon submission tracking
-        submissionForm.addEventListener("submit", function() {
+        // Handle submission to trigger EmailJS followed by Formspree
+        submissionForm.addEventListener("submit", function(event) {
+            event.preventDefault(); // Stop standard Formspree redirect link immediately
+
             const userName = formNameField.value;
-            
-            // Re-structured exact message formatting injected with the user's name
-            formMessageField.value = 
-                `Thank you for downloading RentLog PRO!\n` +
-                `We wanted to let you know that your download request was successful, and your contact details have been safely saved for future system updates or conversational logs.\n` +
-                `If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.\n` +
-                `Best regards,\n` +
-                `The RentLog PRO Team.. but i want it to go like this along woth yhe persons nane: ${userName}`;
+            const userEmail = formEmailField.value;
 
             actionButton.disabled = true;
             actionButton.innerText = "Staging Download...";
+
+           
+            // 📨 The exact layout string configuration with expanded spacing
+const exactEmailBodyText = 
+    `Thank you for downloading RentLog PRO! ${userName}\n\n` +
+    `We wanted to let you know that your download request was successful, and your contact details have been safely saved for future system updates or conversational logs.\n\n` +
+    `If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.\n\n` +
+    `Registration Details:\n` +
+    `• User Number: ${userNumber}\n` +
+    `• Registered Email: ${userEmail}\n\n` +
+    `Best regards,\n\n` +
+    `The RentLog PRO Team`;
+
+            const templateParams = {
+                client_email: userEmail,
+                email_body: exactEmailBodyText
+            };
+
+            // 📤 2. Run the EmailJS system dispatch
+            // 🔑 STEP 2: REPLACE WITH YOUR ACTUAL SERVICE_ID AND TEMPLATE_ID
+            emailjs.send("service_8jncmgr", "template_no03ije", templateParams)
+                .then(function(response) {
+                    console.log("EmailJS Auto-Response Sent!", response.status, response.text);
+                    executeBackendStorageAndDownload();
+                }, function(error) {
+                    console.error("EmailJS Transfer Failed...", error);
+                    // Fallback to save data and complete workflow even if email system breaks
+                    executeBackendStorageAndDownload();
+                });
+
+            // 💾 3. Submit data directly to Formspree, then trigger download drop
+            function executeBackendStorageAndDownload() {
+                const formData = new FormData(submissionForm);
+
+                fetch(submissionForm.action, {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    // Instantly trigger direct APK link file download pipeline
+                    window.location.href = "https://rentlogpro-hub.github.io/RentLog_PRO.apk";
+                    
+                    // Soft UI reset processing closure
+                    setTimeout(() => {
+                        toggleRegistrationModal(false);
+                        submissionForm.reset();
+                        actionButton.disabled = false;
+                        actionButton.innerText = "Verify & Start Download";
+                    }, 1000);
+                })
+                .catch(error => {
+                    console.error("Formspree collection error:", error);
+                    // Always guarantee download file delivery drop hook
+                    window.location.href = "https://rentlogpro-hub.github.io/RentLog_PRO.apk";
+                });
+            }
         });
     </script>
 </body>
