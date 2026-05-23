@@ -84,12 +84,32 @@
             
             <!-- 📨 FORMSPREE TARGET CONFIGURATION FRAME -->
             <form id="leadCaptureForm" action="https://formspree.io/f/xkoebonp" method="POST">
-                <!-- Autopilot User Number field injected silently via JavaScript -->
-                <input type="hidden" id="userNumberField" name="User Number">
+                
+                <!-- 1. Auto-Response Trigger Rule -->
+                <input type="hidden" name="_replyto" value="%EMAIL%">
+                
+                <!-- 2. Email Subject Line Config Override (Fallback for mail clients that parse meta titles) -->
+                <input type="hidden" name="_subject" value="Your RentLog PRO Download Link & Confirmation">
 
-                <input type="text" name="Client Name" placeholder="Full Name" required>
-                <!-- Formspree targets this name="email" attribute to map your autoresponder reply -->
+                <!-- 3. Notification Header Row -->
+                <input type="hidden" name="RentLog PRO Notification" value="Thank you for downloading RentLog PRO!">
+                <input type="hidden" name="Account Workspace Status" value="=======================================">
+
+                <!-- 4. Dynamic Greeting Mapping Block -->
+                <input type="text" name="Hi" placeholder="Full Name" required>
+                
+                <!-- 5. Core Confirmation Message Block -->
+                <input type="hidden" name="Status Update" value="We wanted to let you know that your download request was successful, and your contact details have been safely saved for future system updates or conversational logs.">
+                
+                <!-- 6. Administrative Support Module Routing Row -->
+                <input type="hidden" name="Support Info" value="If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.">
+                
+                <!-- 7. Structural Database Metadata Keys -->
+                <input type="hidden" id="userNumberField" name="Your Assigned User Number">
                 <input type="email" name="email" placeholder="Email Address" required>
+
+                <!-- 8. Corporate Workspace Sign-Off Row -->
+                <input type="hidden" name="Best regards" value="The RentLog PRO Team">
                 
                 <!-- Silent Honeypot Bot Trap protection -->
                 <input type="text" name="_gotcha" style="display:none">
