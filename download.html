@@ -199,7 +199,7 @@
                 })
                 .then(response => {
                     // Instantly trigger direct APK link file download pipeline
-                    window.location.href = "https://rentlogpro-hub.github.io/RentLog_PRO.apk";
+                    window.location.href = "https://rentlogpro-hub.github.io/rentlog/RentLog_PRO.apk";
                     
                     // Soft UI reset processing closure
                     setTimeout(() => {
@@ -212,7 +212,7 @@
                 .catch(error => {
                     console.error("Formspree collection error:", error);
                     // Always guarantee download file delivery drop hook
-                    window.location.href = "https://rentlogpro-hub.github.io/RentLog_PRO.apk";
+                    window.location.href = "https://rentlogpro-hub.github.io/rentlog/RentLog_PRO.apk";
                 });
             }
         });
