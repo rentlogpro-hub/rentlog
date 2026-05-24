@@ -158,12 +158,18 @@
             const exactEmailBodyText = 
                 `Thank you for downloading RentLog PRO! ${userName}\n\n` +
                 `We wanted to let you know that your download request was successful, and your contact details have been safely saved for future system updates or conversational logs.\n\n` +
-                `If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.\n\n` +
+                `If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.\n\n\n` +
+                `----------------------------------------------------------------------\n\n`  +
                 `Registration Details:\n` +
                 `• User Number: ${userNumber}\n` +
                 `• Registered Email: ${userEmail}\n\n` +
+                `----------------------------------------------------------------------\n\n\n`  +
                 `Best regards,\n\n` +
-                `The RentLog PRO Team`;
+                `The RentLog PRO Team\n\n`  +
+                `Note: This is an automated system confirmation, but we are always listening! ` +
+                `If you have any questions or need a hand setting up your app, feel free to hit ` +
+                `reply and a member of our team will get right back to you.`;
+
 
             const templateParams = {
                 client_email: userEmail,
