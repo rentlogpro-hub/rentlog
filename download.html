@@ -149,29 +149,28 @@
 
             const userName = formNameField.value;
             const userEmail = formEmailField.value;
-            const userNumber = userNumberField.value; // ✅ FIXED: Explicitly defined so the text field can read it!
+            const userNumber = userNumberField.value; 
 
             actionButton.disabled = true;
             actionButton.innerText = "Staging Download...";
 
-            // 📨 The exact layout string configuration with expanded spacing
+            // 📨 Fixed exact layout string configuration
             const exactEmailBodyText = 
                 `Thank you for downloading RentLog PRO! ${userName}\n\n` +
                 `We wanted to let you know that your download request was successful, and your contact details have been safely saved for future system updates or conversational logs.\n\n` +
                 `If you ever run into technical issues or need administrative assistance, please feel free to reach out via our official support portal.\n\n\n` +
-                `----------------------------------------------------------------------\n\n`  +
+                `----------------------------------------------------------------------\n\n` +
                 `Registration Details:\n` +
                 `• User Number: ${userNumber}\n` +
                 `• Registered Email: ${userEmail}\n\n` +
-                `📢 Stay Updated:\n` + // ✅ Added this section for your WhatsApp Channel!
+                `📢 Stay Updated:\n` + 
                 `• Join our official WhatsApp Channel to receive instant alerts on new features, system upgrades, and scheduled maintenance windows: https://whatsapp.com/channel/0029VbCfCra0LKZL0QHD1I2D\n\n` +
-                `----------------------------------------------------------------------\n\n\n`  +
+                `----------------------------------------------------------------------\n\n\n` +
                 `Best regards,\n\n` +
-                `The RentLog PRO Team\n\n`  +
+                `The RentLog PRO Team\n\n\n` + // ✅ Spaced out signature nicely
                 `Note: This is an automated system confirmation, but we are always listening! ` +
                 `If you have any questions or need a hand setting up your app, feel free to hit ` +
                 `reply and a member of our team will get right back to you.`;
-
 
             const templateParams = {
                 client_email: userEmail,
