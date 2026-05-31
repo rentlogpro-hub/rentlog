@@ -2,4 +2,4 @@ User-agent: *
 Allow: /rentlog/
 Disallow: /rentlog/maintenance.html
 
-Sitemap: https://rentlogpro-hub.github.io/rentlog/sitemap.xml
+Sitemap: https://aurorasoftware-labs.github.io/rentlog/sitemap.xml
