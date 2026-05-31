@@ -3,4 +3,3 @@ Allow: /rentlog/
 Disallow: /rentlog/maintenance.html
 
 Sitemap: https://rentlogpro-hub.github.io/rentlog/sitemap.xml
-
