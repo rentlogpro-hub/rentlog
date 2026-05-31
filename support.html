@@ -10,7 +10,7 @@
         :root { --primary: #2196F3; --dark: #1E1E24; --light: #F4F6F9; --text: #333; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { color: var(--text); background: var(--light); line-height: 1.6; }
-        nav { background: white; padding: 10px 10%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        nav { background: white; padding: 10px 10%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
         .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
         .logo-img { height: 40px; width: auto; object-fit: contain; }
         .logo-text { font-weight: 800; font-size: 22px; color: var(--primary); letter-spacing: 0.5px; }
@@ -120,9 +120,10 @@
             <span class="logo-text">RentLog PRO</span>
         </a>
         <div>
-            <a href="index.html" class="nav-link">Home</a>
+            <a href="updates.html" class="nav-link">Updates</a>
             <a href="download.html" class="nav-link">Download</a>
             <a href="manual.html" class="nav-link">User Manual</a>
+            <a href="support.html" class="nav-link">Support</a>
             <a href="feedback.html" class="nav-link">Feedback</a>
         </div>
     </nav>
@@ -177,10 +178,12 @@
                 <h4>Quick Navigation</h4>
                 <ul>
                     <li><a href="index.html">Home Landing</a></li>
-                    <li><a href="faq.html">FAQ Page</a></li>
+                    <li><a href="updates.html">Updates & Roadmap</a></li>
                     <li><a href="download.html">Download Package</a></li>
                     <li><a href="manual.html">User Manual</a></li>
-                    <li><a href="support.html">Support Portal</a></li>
+                    <li><a href="faq.html">FAQ Page</a></li>
+                    <li><a href="support.html">System Support</a></li>
+                    <li><a href="feedback.html">Submit Feedback</a></li>
                 </ul>
             </div>
             
